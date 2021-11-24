@@ -1,3 +1,3 @@
-# rpi-device-tree
+# rpi-device-tree-blobs
 
 Raspberry Pi Device Tree Blobs
