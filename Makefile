@@ -5,7 +5,7 @@ SOURCE_DIR    := /tmp/rpi-device-tree
 DISTRIB_DIR   := $(CURDIR)/.distrib
 RELEASE_DATE  := $(shell date "+%Y%m%d")
 RELEASE_NOTES := Release: v$(RELEASE_DATE)
-ARCHIVE_NAME  := $(RELEASE_DATE).tar.gz
+ARCHIVE_NAME  := v$(RELEASE_DATE).tar.gz
 
 .PHONY: all
 all: release
