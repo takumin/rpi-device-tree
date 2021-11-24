@@ -1,8 +1,8 @@
 KERNEL_BRANCH ?= rpi-5.10.y
 
-DOWNLOAD_DIR  := $(CURDIR)/.download
-SOURCE_DIR    := /tmp/rpi-device-tree
-DISTRIB_DIR   := $(CURDIR)/.distrib
+DOWNLOAD_DIR  := .download
+SOURCE_DIR    := /tmp/rpi-device-tree-build
+DISTRIB_DIR   := /tmp/rpi-device-tree-distrib
 RELEASE_DATE  := $(shell date "+%Y%m%d")
 RELEASE_NOTES := Release: v$(RELEASE_DATE)
 ARCHIVE_NAME  := rpi-dtbs-v$(RELEASE_DATE).tar.gz
@@ -51,15 +51,15 @@ distrib: build
 
 .PHONY: archive
 archive: distrib
-	@if [ ! -f "$(CURDIR)/$(ARCHIVE_NAME)" ]; then \
-		tar -czvf "$(CURDIR)/$(ARCHIVE_NAME)" -C "$(DISTRIB_DIR)" --sort=name --owner root:0 --group root:0 .; \
-		sha256sum "$(CURDIR)/$(ARCHIVE_NAME)" > "$(CURDIR)/$(ARCHIVE_NAME).sha256sum"; \
+	@if [ ! -f "$(ARCHIVE_NAME)" ]; then \
+		tar -czvf "$(ARCHIVE_NAME)" -C "$(DISTRIB_DIR)" --sort=name --owner root:0 --group root:0 .; \
+		sha256sum "$(ARCHIVE_NAME)" > "$(ARCHIVE_NAME).sha256sum"; \
 	fi
 
 .PHONY: release
 release: archive
 	@gh auth status 1>/dev/null 2>&1 || exit 1
-	@gh release create "v$(RELEASE_DATE)" -n "$(RELEASE_NOTES)" "$(CURDIR)/$(ARCHIVE_NAME)" "$(CURDIR)/$(ARCHIVE_NAME).sha256sum"
+	@gh release create "v$(RELEASE_DATE)" -n "$(RELEASE_NOTES)" "$(ARCHIVE_NAME)" "$(ARCHIVE_NAME).sha256sum"
 
 .PHONY: clean
 clean:
