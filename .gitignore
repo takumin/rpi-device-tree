@@ -1,0 +1,4 @@
+/.download
+/.distrib
+*.tar.gz
+*.sha256sum
