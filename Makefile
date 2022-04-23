@@ -1,4 +1,4 @@
-KERNEL_BRANCH ?= rpi-5.10.y
+KERNEL_BRANCH ?= rpi-5.15.y
 
 DOWNLOAD_DIR  := .download
 SOURCE_DIR    := /tmp/rpi-device-tree-build
